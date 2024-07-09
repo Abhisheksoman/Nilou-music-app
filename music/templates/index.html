@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nilou music</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'photos/nilou.svg' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  <style>
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(#131614, #000000);
+      background-repeat: no-repeat;
+    "
+  </style>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'utility.css' %}">
+</head>
+<body>
+    <div class="container flex bg-black">
+        <div class="left-column bg-grey">
+            <div class="home bg-grey rounded m-1 p-1">
+                <div class="logo">
+                    <a href="#home" style="text-decoration: none;">
+                        <img src="{% static 'photos/nilou.svg' %}" alt="nilou">Nilou
+                    </a>
+                </div>
+                <ul class="menu-list">
+                    <li><a href="#home" style="text-decoration: none;">
+                        <img src="{% static 'photos/home.png' %}" alt="home">Home
+                    </a></li>
+                    <li>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="search" class="form-control" placeholder="Search" aria-label="Search">
+                                <div class="input-group-append">
+                                    <!-- <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button> -->
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <div class="library bg-grey rounded m-1 p-1">
+                <div class="heading">
+                    <img src="{% static 'photos/stack.png' %}" alt="he">
+                    <h2>Your library</h2>
+                </div>
+                <div class="songList">
+                    {% for music in allSongs %}
+                    <ul>
+                        <li>
+                            <img class="invert" src="{% static 'photos/music.svg' %}" alt="">
+                            {% if 'email' in request.session %}
+                            <div class="info" data-song-url="{{ music.song.url }}" data-song-title="{{ music.song_title }}" data-song-album="{{ music.album }}">
+                                <div>{{ music.song_title }}</div>
+                            </div>
+                            {% else %}
+                                <div class="info">
+                                    <div>{{ music.song_title }}</div>
+                                </div>
+                            {% endif %}
+                        </li>
+                    </ul>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="footer">
+                <div><a href="https://www.spotify.com/in-en/legal/"><span>Legal</span></a></div>
+                <div><a href="https://www.spotify.com/in-en/safetyandprivacy/"><span>Safety & Privacy Center</span></a></div>
+                <div><a href="https://www.spotify.com/in-en/legal/privacy-policy/"><span>Privacy Policy</span></a></div>
+                <div><a href="https://www.spotify.com/in-en/legal/cookies-policy/"><span>Cookies</span></a></div>
+                <div><a href="https://www.spotify.com/in-en/legal/privacy-policy/#s3"><span>About Ads</span></a></div>
+                <div><a href="https://www.spotify.com/in-en/accessibility/"><span>Accessibility</span></a></div>
+            </div>
+        </div>
+        <div class="right-column bg-grey rounded">
+            <div class="header">
+                <div class="nav">
+                    <img src="{% static 'photos/left_arrow.png' %}" alt="left">
+                    <img src="{% static 'photos/right_arrow.png' %}" alt="right">
+                </div>
+                {% if 'email' in request.session %}
+                <div class="authenticated-user-content">
+                    <h2>Welcome, {{ user.name }}!</h2>
+                    <p>You are logged in as an authenticated user.</p>
+                    <a href="{% url 'user_logout' %}">Logout</a>
+                    <a href="{% url 'show' %}">User dashboard</a>
+                </div>
+                {% else %}
+                <div class="buttons">
+                    <a type="button" class="btn" href="{% url 'register' %}">Signup</a>
+                    <a type="button" class="btn" href="{% url 'login' %}">Login</a>
+                </div>
+                {% endif %}
+            </div>
+            <div class="nilou-playlist">
+                <h1>Nilou Music Playlist</h1>
+                <div class="cardContainer">
+                    {% for music in allSongs %}
+                    <div class="card">
+                        {% if 'email' in request.session %}
+                        <div class="play-button" data-song-url="{{ music.song.url }}" data-song-title="{{ music.song_title }}" data-song-artist="{{ music.album.artist.artistName }}">
+                            <img src="{% static 'photos/play.svg' %}">
+                        </div>
+                        <div class="pause-btn" style="display:none;">
+                            <img src="{% static 'photos/pause.svg' %}">
+                        </div>
+                        {% else %}
+                        <div class="play-button">
+                            <img src="{% static 'photos/play.svg' %}">
+                        </div>
+                        {% endif %}
+                        <img src="{{ music.thumbnail.url }}" alt="{{ music.song_title }}">
+                        <h3>{{ music.song_title }}</h3>
+                        <p>from -{{ music.album }}</p>
+                        <p>Last Updated {{ music.last_updated | timesince }} mins ago</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="playbar">
+                    <audio id="music-player" style="width:100%" controls>
+                        <source id="music-source" src="" type="audio/mpeg">
+                    </audio>
+                    </div>
+                    <div class="songinfo">
+                        <img id="thumbnail" src="" alt="">
+                        <h3 id="current-song-title"></h3>
+                    </div>
+                    <div class="songtime">
+                        <span id="current-time">0:00</span>
+                        <span id="total_duration">{{ duration_text }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

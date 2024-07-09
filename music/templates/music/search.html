@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Music</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Search for a Song</h1>
+
+    <form method="GET" action="{% url 'search' %}">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Enter song title" name="q" aria-label="Search" aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+            </div>
+        </div>
+    </form>
+
+    {% if songs %}
+    <h2 class="text-center">Search Results</h2>
+    <div class="list-group">
+        {% for song in allSongs %}
+        <a href="{{ song.song_url }}" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ song.song_title }}</h5>
+                <small>{{ song.playlist_id }}</small>
+            </div>
+            <p class="mb-1"><img src="{{ song.thumbnail }}" alt="Thumbnail" class="img-thumbnail" width="100"></p>
+            <small>{{ song.playlist_url }}</small>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-center">No songs found.</p>
+    {% endif %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

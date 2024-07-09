@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'form1.css' %}">
+    <script src="https://kit.fontawesome.com/93c5cd9c9c.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  <style>
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(#131614, #000000);
+      background-repeat: no-repeat;
+    "
+  </style>
+</head>
+<body>
+    <div class="container-fluid bg-dark text-light py-3">
+      <header class="text-center">
+        <p class="h1 display-6">Forgot Password</p>
+      </header>
+    </div>
+    <section class="container my-2 bg-dark w-50 text-light p-2">
+      <form action="{% url 'forget_password' %}" id="post-form" method="post" class="row g-3 p-3">
+          {% csrf_token %}
+          <h6 class="text-success text-center"></h6>
+        <div class="col-md-6">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" name="email" required>
+        </div>
+        <div class="col-md-6">
+          <label for="password">Enter the new Password</label>
+          <input type="password" name="password" class="form-control" required>
+        </div>
+        <div class="col-md-6">
+            <label for="confirm_password" class="form-label">Confirm Password</label>
+            <input type="password" name="confirm_password" class="form-control" required>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">Update password</button>
+          <a class="btn btn-primary" href="{% url 'login' %}">Way back to login</a>
+        </div>
+      </form>
+    </section>
+</body>
+</html>

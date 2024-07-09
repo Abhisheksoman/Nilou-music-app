@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update form</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'form1.css' %}">
+    <script src="https://kit.fontawesome.com/93c5cd9c9c.js" crossorigin="anonymous"></script>
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  <style>
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(#131614, #000000);
+      background-repeat: no-repeat;
+    "
+  </style>
+</head>
+<body>
+    <div class="container-fluid bg-dark text-light py-3">
+      <header class="text-center">
+        <p class="h1 display-6">Update FORM</p>
+      </header>
+    </div>
+    <section class="container my-2 bg-dark w-50 text-light p-2">
+      <form action="{% url 'update' %}" method="post" class="row g-3 p-3">
+        {% csrf_token %}
+        <div class="col-md-4">
+          <label for=" name">Your Name</label>
+          <input type="text" class="form-control" required value="{{user.name}}" name="name" >
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" required value="{{user.email}}" name="email">
+        </div>
+        <div class="col-md-6">
+          <label for="password">Password</label>
+          <input type="password"  name="password" required value="{{user.password}}" class="form-control">
+        </div>
+        <div class="col-12">
+          <label for="age">Age</label>
+          <input type="number" class="form-control" required value="{{user.age}}" name="age">
+        </div>
+        <div class="col-md-2">
+          <label for="zip">Zip</label>
+          <input type="text" name="zip" required value="{{user.zip}}" class="form-control">
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">update</button>
+        </div>
+      </form>
+    </section>
+</body>
+</html>
