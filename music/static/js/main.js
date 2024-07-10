@@ -88,11 +88,10 @@ $(document).ready(function() {
     $('.info').click(function() {
         var songUrl = $(this).data('song-url');
         var songTitle = $(this).data('song-title');
-        var songThumbnail = $(this).data('song-thumbnail');
 
         $('#music-source').attr('src', songUrl);
         $('#current-song-title').text(songTitle);
-        $('#thumbnail').attr('src', songThumbnail);
+
 
         var musicPlayer = document.getElementById('music-player');
         musicPlayer.load();
