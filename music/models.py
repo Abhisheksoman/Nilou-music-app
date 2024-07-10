@@ -28,6 +28,7 @@ class Album(models.Model):
     albumName = models.CharField(_("Album Name"),max_length=50)
     created = models.DateTimeField(_('Album Created Date'), auto_now_add=True)
     last_updated = models.DateTimeField(_('Last album update'), auto_now=True)
+    thumbnail = models.ImageField(_("Thumbnail"), upload_to='img/',default=True)
 
     class Meta:
         verbose_name = _('Album')
