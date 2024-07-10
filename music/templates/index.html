@@ -55,9 +55,15 @@
                     <ul>
                         <li>
                             <img class="invert" src="{% static 'photos/music.svg' %}" alt="">
-                            <div class="info">
-                                <div>{{ music.song_title }}</div>
-                            </div>
+                            {% if 'email' in request.session %}
+                                <div class="info" data-song-url="{{ music.song.url }}" data-song-title="{{ music.song_title }}" data-song-thumbnail="{{ music.thumbnail.url }}">
+                                    <div>{{ music.song_title }}</div>
+                                </div>
+                            {% else %}
+                                <div class="info">
+                                    <div>{{ music.song_title }}</div>
+                                </div>
+                            {% endif %}
                         </li>
                     </ul>
                     {% endfor %}
@@ -97,9 +103,21 @@
                 <div class="cardContainer">
                 {% for music in allSongs %}
                 <div class="card">
+                   {% if 'email' in request.session %}
                     <div class="play-button" data-song-url="{{ music.song.url }}" data-song-title="{{ music.song_title }}" data-song-thumbnail="{{ music.thumbnail.url }}">
                         <img src="{% static 'photos/play.svg' %}">
                     </div>
+                    <div class="pause-btn" style="display:none;">
+                        <img src="{% static 'photos/pause.svg' %}">
+                    </div>
+                    {% else %}
+                    <div class="play-button">
+                        <img src="{% static 'photos/play.svg' %}">
+                    </div>
+                    <div class="pause-btn" style="display:none;">
+                        <img src="{% static 'photos/pause.svg' %}">
+                    </div>
+                    {% endif %}
                     <img src="{{ music.thumbnail.url }}" alt="{{ music.song_title }}">
                     <h3>{{ music.song_title }}</h3>
                     <p>from -{{ music.album }}</p>
