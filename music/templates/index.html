@@ -124,10 +124,15 @@
                   {% endfor %}
                 </div>
                 <div class="playbar">
-                    <audio id="music-player" style="width:100%" controls>
-                        <source id="music-source" src="" type="audio/mpeg">
-                    </audio>
-                    </div>
+                  <audio id="music-player">
+                    <source id="music-source" src="" type="audio/mpeg">
+                  </audio>
+                      <div class="player-controls">
+                        <button id="prev-btn"><img src="{% static 'photos/prev.png' %}" alt="Previous" style="color:white; width:20px"></button>
+                        <button id="play-btn"><img src="{% static 'photos/play.png' %}" alt="Play" style="color:white; width:20px"></button>
+                        <button id="next-btn"><img src="{% static 'photos/next.png' %}" alt="Next" style="color:white; width:20px"></button>
+                      </div>
+                </div>
                     <div class="songinfo">
                         <img id="thumbnail" src="" alt="">
                         <h3 id="current-song-title"></h3>

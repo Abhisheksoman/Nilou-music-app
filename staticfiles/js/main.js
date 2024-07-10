@@ -19,13 +19,33 @@ $(document).ready(function() {
         // Logic to play the specific media
         var songUrl = $(this).data('song-url');
         var songTitle = $(this).data('song-title');
-        var songArtist = $(this).data('song-artist');
+        var songThumbnails = [];
         const mediaElement = $("#music-player")[0];
 
-        updateMediaElement(mediaElement, songUrl, songTitle, songArtist);
+        {% for album in albums %}
+          {% for music in album.music_set.all %}
+            songUrl.push('{{ music.song.url }}');
+            songTitle.push('{{ music.song_title }}');
+            songThumbnails.push('{{ music.thumbnail.url }}');
+          {% endfor %}
+        {% endfor %}
+
+        updateMediaElement(mediaElement, songUrl, songTitle, songThumbnails);
         if (mediaElement) {
             mediaElement.play();
         }
+    });
+
+     $('#next-btn').click(function() {
+      currentIndex = (currentIndex + 1) % songUrls.length;
+      updateAudioPlayer();
+      playAudio();
+    });
+
+    $('#prev-btn').click(function() {
+      currentIndex = (currentIndex - 1 + songUrls.length) % songUrls.length;
+      updateAudioPlayer();
+      playAudio();
     });
 
     $(".card .pause-btn").click(function(e) {
@@ -44,6 +64,10 @@ $(document).ready(function() {
         $(mediaElement).find("source").attr('src', songUrl);
         mediaElement.load(); // Reload the audio element with the new source
         $('#current-song-title').text(songTitle);
-        $('#current-song-artist').text(songArtist);
+        $('#thumbnail').attr('src', songThumbnails[currentIndex]);
+    }
+    function toggleSongList(element) {
+      $(element).toggleClass('active');
+      $(element).next('.song-list').slideToggle();
     }
 });

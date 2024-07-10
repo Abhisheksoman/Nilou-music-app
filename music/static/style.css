@@ -252,3 +252,12 @@ a {
     top:168px;
     right:17px;
 }
+.album-container{
+     width: 200px;
+    padding: 30px;
+    border-radius: 5px;
+    flex-wrap: wrap;
+    background-color:#252525;
+    position:relative;
+    margin:10px;
+}
