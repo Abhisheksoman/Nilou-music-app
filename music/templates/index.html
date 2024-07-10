@@ -48,11 +48,11 @@
                 </ul>
             </div>
             <div class="library bg-grey rounded m-1 p-1">
-                <div class="heading">
+                <div class="heading" onclick="toggleSongList(this)">
                     <img src="{% static 'photos/stack.png' %}" alt="he">
                     <h2>Your library</h2>
                 </div>
-                <div class="songList" onclick="toggleSongList(this)">
+                <div class="songList">
                     {% for music in allSongs %}
                     <ul>
                         <li>

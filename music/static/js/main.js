@@ -80,6 +80,6 @@ $(document).ready(function() {
 
         window.toggleSongList = function(element) {
             $(element).toggleClass('active');
-            $(element).next('.songList').slideToggle();
+            $(element).next('.heading').slideToggle();
         };
     });
