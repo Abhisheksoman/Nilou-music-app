@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import User,Music
+from .models import User,Music,Album
 from .forms import Loginform,Userform,Forgetform,Updateform
 from django.http import HttpResponse
 from django.contrib import messages
@@ -8,8 +8,9 @@ from django.contrib.auth.hashers import make_password
 
 
 def start(request):
-    allSongs = Music.objects.all()
-    return render(request,'index.html',{'allSongs':allSongs})
+    albums = Album.objects.all()
+    return render(request, 'index.html', {'albums': albums})
+
 
 
 
@@ -51,10 +52,10 @@ def home(request):
     if 'email' in request.session:
         try:
             user = User.objects.get(email=request.session['email'])
-            allSongs = Music.objects.all()
+            albums = Album.objects.all()
             context = {
                 'user':user,
-                'allSongs': allSongs,
+                'albums':albums,
             }
             return render(request, 'index.html', context)
         except User.DoesNotExist:

@@ -102,27 +102,26 @@
             </div>
             <div class="nilou-playlist">
                 <h1>Nilou Music Playlist</h1>
-                <div class="cardContainer">
-                    {% for music in allSongs %}
-                    <div class="card">
-                        {% if 'email' in request.session %}
-                        <div class="play-button" data-song-url="{{ music.song.url }}" data-song-title="{{ music.song_title }}" data-song-artist="{{ music.album.artist.artistName }}">
-                            <img src="{% static 'photos/play.svg' %}">
-                        </div>
-                        <div class="pause-btn" style="display:none;">
-                            <img src="{% static 'photos/pause.svg' %}">
-                        </div>
-                        {% else %}
-                        <div class="play-button">
-                            <img src="{% static 'photos/play.svg' %}">
-                        </div>
-                        {% endif %}
-                        <img src="{{ music.thumbnail.url }}" alt="{{ music.song_title }}">
-                        <h3>{{ music.song_title }}</h3>
-                        <p>from -{{ music.album }}</p>
-                        <p>Last Updated {{ music.last_updated | timesince }} mins ago</p>
+                <div class="album-container">
+                  {% for album in albums %}
+                    <div class="album-header" onclick="toggleSongList(this)">
+                      <h3>{{ album.albumName }}</h3>
+                      <span class="toggle-icon">+</span>
                     </div>
-                    {% endfor %}
+                    <div class="song-list" style="display: none;">
+                      {% for music in album.music_set.all %}
+                        <div class="song-item">
+                          <div class="song-thumbnail">
+                            <img src="{{ music.thumbnail.url }}" alt="{{ music.song_title }}">
+                          </div>
+                          <div class="song-info">
+                            <h4>{{ music.song_title }}</h4>
+                            <button class="play-button">Play</button>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% endfor %}
                 </div>
                 <div class="playbar">
                     <audio id="music-player" style="width:100%" controls>
