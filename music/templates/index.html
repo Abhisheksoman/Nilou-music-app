@@ -40,7 +40,7 @@
                             <div class="input-group">
                                 <input type="search" class="form-control" placeholder="Search" aria-label="Search">
                                 <div class="input-group-append">
-                                    <!-- <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button> -->
+                                     <a class="btn" type="button" href=""><i class="fas fa-search"></i></a>
                                 </div>
                             </div>
                         </form>
@@ -52,7 +52,7 @@
                     <img src="{% static 'photos/stack.png' %}" alt="he">
                     <h2>Your library</h2>
                 </div>
-                <div class="songList">
+                <div class="songList" onclick="toggleSongList(this)">
                     {% for music in allSongs %}
                     <ul>
                         <li>
