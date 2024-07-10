@@ -8,8 +8,8 @@ from django.contrib.auth.hashers import make_password
 
 
 def start(request):
-    albums = Album.objects.all()
-    return render(request, 'index.html', {'albums': albums})
+    allSongs = Music.objects.all()
+    return render(request, 'index.html', {'allSongs': allSongs})
 
 
 
@@ -52,10 +52,10 @@ def home(request):
     if 'email' in request.session:
         try:
             user = User.objects.get(email=request.session['email'])
-            albums = Album.objects.all()
+            allSongs = Music.objects.all()
             context = {
                 'user':user,
-                'albums':albums,
+                'allSongs':allSongs,
             }
             return render(request, 'index.html', context)
         except User.DoesNotExist:
