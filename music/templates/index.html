@@ -5,19 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nilou music</title>
     {% load static %}
-    <link rel="shortcut icon" href="{% static 'photos/nilou.svg' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-  <style>
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(#131614, #000000);
-      background-repeat: no-repeat;
-    "
-  </style>
+    <style>
+        @font-face {
+        font-family: 'MyFont';
+        src: url('{% static "fonts/Aibrandosregular.ttf" %}') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+      }
+    body {
+        font-family: 'MyFont', sans-serif;
+    }
+    </style>
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="stylesheet" href="{% static 'utility.css' %}">
 </head>
@@ -57,15 +55,9 @@
                     <ul>
                         <li>
                             <img class="invert" src="{% static 'photos/music.svg' %}" alt="">
-                            {% if 'email' in request.session %}
-                            <div class="info" data-song-url="{{ music.song.url }}" data-song-title="{{ music.song_title }}" data-song-album="{{ music.album }}">
+                            <div class="info">
                                 <div>{{ music.song_title }}</div>
                             </div>
-                            {% else %}
-                                <div class="info">
-                                    <div>{{ music.song_title }}</div>
-                                </div>
-                            {% endif %}
                         </li>
                     </ul>
                     {% endfor %}
@@ -102,56 +94,37 @@
             </div>
             <div class="nilou-playlist">
                 <h1>Nilou Music Playlist</h1>
-                <div class="album-container">
-                  {% for album in albums %}
-                    <div class="album-header" onclick="toggleSongList(this)">
-                      <h3>{{ album.albumName }}</h3>
-                      <span class="toggle-icon">+</span>
+                <div class="cardContainer">
+                {% for music in allSongs %}
+                <div class="card">
+                    <div class="play-button" data-song-url="{{ music.song.url }}" data-song-title="{{ music.song_title }}" data-song-thumbnail="{{ music.thumbnail.url }}">
+                        <img src="{% static 'photos/play.svg' %}">
                     </div>
-                    <div class="song-list" style="display: none;">
-                      {% for music in album.music_set.all %}
-                        <div class="song-item">
-                          <div class="song-thumbnail">
-                            <img src="{{ music.thumbnail.url }}" alt="{{ music.song_title }}">
-                          </div>
-                          <div class="song-info">
-                            <h4>{{ music.song_title }}</h4>
-                          {% if 'email' in request.session %}
-                            <div class="play-button" data-song-url="{{ music.song.url }}" data-song-title="{{ music.song_title }}" data-song-thumbnail="{{ music.thumbnail.url }}">
-                                <img src="{% static 'photos/play.svg' %}">
-                            </div>
-                            <div class="pause-btn" style="display:none;">
-                                <img src="{% static 'photos/pause.svg' %}">
-                            </div>
-                          {% endif %}
-                          </div>
-                        </div>
-                      {% endfor %}
-                    </div>
-                  {% endfor %}
+                    <img src="{{ music.thumbnail.url }}" alt="{{ music.song_title }}">
+                    <h3>{{ music.song_title }}</h3>
+                    <p>from -{{ music.album }}</p>
+                    <p>Last Updated {{ music.last_updated | timesince }} mins ago</p>
                 </div>
-                <div class="playbar">
-                  <audio id="music-player">
+                {% endfor %}
+            </div>
+
+            <div class="playbar">
+                <audio id="music-player" style="width:100%" controls>
                     <source id="music-source" src="" type="audio/mpeg">
-                  </audio>
-                      <div class="player-controls">
-                        <button id="prev-btn"><img src="{% static 'photos/prev.png' %}" alt="Previous" style="color:white; width:20px"></button>
-                        <button id="play-btn"><img src="{% static 'photos/play.png' %}" alt="Play" style="color:white; width:20px"></button>
-                        <button id="next-btn"><img src="{% static 'photos/next.png' %}" alt="Next" style="color:white; width:20px"></button>
-                      </div>
-                </div>
-                    <div class="songinfo">
-                        <img id="thumbnail" src="" alt="">
-                        <h3 id="current-song-title"></h3>
-                    </div>
-                    <div class="songtime">
-                        <span id="current-time">0:00</span>
-                        <span id="total_duration">{{ duration_text }}</span>
-                    </div>
-                </div>
+                </audio>
+            </div>
+            <div class="songinfo">
+                <img id="thumbnail" src="" alt="">
+                <h3 id="current-song-title"></h3>
+            </div>
+            <div class="songtime">
+                <span id="current-time">0:00</span>
+                <span id="total_duration">{{ duration_text }}</span>
+            </div>
+            </div>
             </div>
         </div>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script></script>
+<script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>

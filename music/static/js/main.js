@@ -1,7 +1,6 @@
 $(document).ready(function() {
-        var songUrls = [];
-        var songTitles = [];
-        var songThumbnails = [];
+        var songUrls = $(this).data('song-url');
+        var songTitles = $(this).data('song-title');
         var currentIndex = 0;
 
 
@@ -25,10 +24,9 @@ $(document).ready(function() {
             // Logic to play the specific media
             var songUrl = $(this).data('song-url');
             var songTitle = $(this).data('song-title');
-            var songThumbnail = $(this).data('song-thumbnail');
             const mediaElement = $("#music-player")[0];
 
-            updateMediaElement(mediaElement, songUrl, songTitle, songThumbnail);
+            updateMediaElement(mediaElement, songUrl, songTitle);
             if (mediaElement) {
                 mediaElement.play();
             }
@@ -62,7 +60,6 @@ $(document).ready(function() {
             $(mediaElement).find("source").attr('src', songUrl);
             mediaElement.load(); // Reload the audio element with the new source
             $('#current-song-title').text(songTitle);
-            $('#thumbnail').attr('src', songThumbnail);
         }
 
         function updateAudioPlayer() {
