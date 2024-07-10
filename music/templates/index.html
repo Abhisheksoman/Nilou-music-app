@@ -102,7 +102,7 @@
             </div>
             <div class="nilou-playlist">
                 <h1>Nilou Music Playlist</h1>
-                <div class="album-container">
+                <div class="album-container card">
                   {% for album in albums %}
                     <div class="album-header" onclick="toggleSongList(this)">
                       <h3>{{ album.albumName }}</h3>
@@ -116,7 +116,14 @@
                           </div>
                           <div class="song-info">
                             <h4>{{ music.song_title }}</h4>
-                            <button class="play-button">Play</button>
+                          {% if 'email' in request.session %}
+                            <div class="play-button">
+                                <img src="{% static 'photos/play.svg' %}">
+                            </div>
+                            <div class="pause-btn" style="display:none;">
+                                <img src="{% static 'photos/pause.svg' %}">
+                            </div>
+                          {% endif %}
                           </div>
                         </div>
                       {% endfor %}
