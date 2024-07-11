@@ -80,6 +80,21 @@ $(document).ready(function() {
 
         window.toggleSongList = function(element) {
             $(element).toggleClass('active');
-            $(element).next('.songList').slideToggle();
+            $(element).next('.heading').slideToggle();
         };
     });
+
+$(document).ready(function() {
+    $('.info').click(function() {
+        var songUrl = $(this).data('song-url');
+        var songTitle = $(this).data('song-title');
+
+        $('#music-source').attr('src', songUrl);
+        $('#current-song-title').text(songTitle);
+
+
+        var musicPlayer = document.getElementById('music-player');
+        musicPlayer.load();
+        musicPlayer.play();
+    });
+});
