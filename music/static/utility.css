@@ -122,7 +122,6 @@
 .search-button img{
     flex: 0 1 10px; /* Adjust the max width here */
     padding: 9px;
-    background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
