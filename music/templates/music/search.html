@@ -22,7 +22,7 @@
 <div class="container mt-5">
     <h1 class="text-center mb-4">Search for a Song</h1>
 
-    <form method="GET" action="{% url 'search' %}">
+    <form method="GET" action="{% url 'search_Songs' %}">
         <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Enter song title" name="q" aria-label="Search" aria-describedby="button-addon2">
             <div class="input-group-append">
@@ -34,7 +34,7 @@
     {% if songs %}
     <h2 class="text-center">Search Results</h2>
     <div class="list-group">
-        {% for song in allSongs %}
+        {% for song in search_result %}
         <a href="{{ song.song_url }}" class="list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">{{ song.song_title }}</h5>

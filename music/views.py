@@ -4,6 +4,7 @@ from .forms import Loginform,Userform,Forgetform,Updateform
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
+from django.db.models import Q
 # Create your views here.
 
 
@@ -47,6 +48,27 @@ def login(request):
     else:
         form = Loginform()
         return render(request, 'form2.html', {'form': form})
+
+def search_Songs(request):
+    if 'email' in request.session:
+        template_path = 'music/search.html'
+
+        search_query = request.GET.get('search', None)
+
+        if search_query:
+            search_result = Music.objects.filter(
+                Q(songName__icontains=search_query) |
+                Q(album__albumName__icontains=search_query) |
+                Q(album__artist__artistName__icontains=search_query)
+            ).distinct()
+        else:
+            search_result = Music.objects.all()
+
+        context = {'search_result': search_result, 'search_query': search_query}
+        return render(request, template_path, context)
+    else:
+        pass
+
 
 def home(request):
     if 'email' in request.session:

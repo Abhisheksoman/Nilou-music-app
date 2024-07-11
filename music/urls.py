@@ -13,6 +13,5 @@ urlpatterns = [
     path('update/', views.update, name='update'),
     path('delete/', views.delete, name='delete'),
     path('user_logout/',views.user_logout,name='user_logout'),
-    # path('upload_song/', views.upload_song, name='upload_song'),
-    # path('music', views.music, name='music'),
+    path('search_Songs/', views.search_Songs, name='search_Songs'),
 ]
