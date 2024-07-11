@@ -121,9 +121,9 @@
 
 .search-button img{
     flex: 0 1 5px; /* Adjust the max width here */
-    padding: -15px;
     color: white;
     border: none;
     cursor: pointer;
-    display:inline;
+    display:flex;
+    flex-wrap:1px;
 }
