@@ -118,14 +118,13 @@
         border: 2px solid #2e2e2e;  /* Border around the thumb (matches the track background) */
     }
 }
-.search-button {
-    flex: 0 1 60px; /* Adjust the max width here */
+
+.search-button img{
+    flex: 0 1 10px; /* Adjust the max width here */
     padding: 10px 20px;
-    font-size: 16px;
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
     display:inline;
-    margin-left: 0px;
 }
