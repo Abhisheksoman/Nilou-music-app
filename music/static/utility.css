@@ -120,8 +120,8 @@
 }
 
 .search-button img{
-    flex:  1px; /* Adjust the max width here */
-    padding: 0px;
+    flex: 0 1 10px; /* Adjust the max width here */
+    padding: 1px;
     color: white;
     border: none;
     cursor: pointer;
