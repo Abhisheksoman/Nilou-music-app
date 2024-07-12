@@ -49,25 +49,23 @@ def login(request):
         form = Loginform()
         return render(request, 'form2.html', {'form': form})
 
-def search_Songs(request):
-    if 'email' in request.session:
-        template_path = 'music/search.html'
 
-        search_query = request.GET.get('search', None)
+def search_songs(request):
+    template_path = 'music/search.html'
 
-        if search_query:
-            search_result = Music.objects.filter(
-                Q(songName__icontains=search_query) |
-                Q(album__albumName__icontains=search_query) |
-                Q(album__artist__artistName__icontains=search_query)
-            ).distinct()
-        else:
-            search_result = Music.objects.all()
+    search_query = request.GET.get('q', None)
 
-        context = {'search_result': search_result, 'search_query': search_query}
-        return render(request, template_path, context)
+    if search_query:
+        search_result = Music.objects.filter(
+            Q(song_title__icontains=search_query) |
+            Q(album__albumName__icontains=search_query) |
+            Q(album__artist__artistName__icontains=search_query)
+        ).distinct()
     else:
-        pass
+        search_result = Music.objects.all()
+
+    context = {'search_result': search_result, 'search_query': search_query}
+    return render(request, template_path, context)
 
 
 def home(request):

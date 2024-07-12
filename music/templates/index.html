@@ -34,12 +34,11 @@
                         <img src="{% static 'photos/home.png' %}" alt="home">Home
                     </a></li>
                     <li>
-                        <form method="post">
-                            {% csrf_token %}
-                            <div class="input-group">
-                                <input type="search" class="form-control" placeholder="Search" aria-label="Search">
+                        <form method="GET" action="{% url 'search_songs' %}">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Enter song title" name="q" aria-label="Search" aria-describedby="button-addon2">
                                 <div class="input-group-append">
-                                     <a class="search-button" type="button" href="{% url 'search_Songs' %}"><img src="{% static 'photos/search.png' %}"></a>
+                                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
                                 </div>
                             </div>
                         </form>

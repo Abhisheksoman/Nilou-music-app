@@ -119,7 +119,7 @@
     }
 }
 
-.search-button img{
+.search-button {
     flex: 0 1 5px; /* Adjust the max width here */
     color: white;
     border: none;
