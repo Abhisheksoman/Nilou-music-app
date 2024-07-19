@@ -145,18 +145,18 @@
             </div>
         </div>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="{% static 'js/main.js' %}"></script>
-    <script>
+<script>
         const songUrls = [
-        {% for music in allSongs %}
-            "{{ music.song.url }}"{% if not forloop.last %},{% endif %}
-        {% endfor %}
-    ];
-    const songTitles = [
-        {% for music in allSongs %}
-            "{{ music.song_title }}"{% if not forloop.last %},{% endif %}
-        {% endfor %}
-    ];
-    </script>
+            {% for music in allSongs %}
+                "{{ music.song.url }}"{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+        const songTitles = [
+            {% for music in allSongs %}
+                "{{ music.song_title }}"{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+</script>
+<script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
