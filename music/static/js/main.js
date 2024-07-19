@@ -33,14 +33,12 @@ $(document).ready(function() {
         });
 
         function nextSong() {
-            var songUrl = $(this).data('song-url');
             currentIndex = (currentIndex + 1) % songUrls.length;
             updateAudioPlayer();
             playAudio();
         };
 
         function prevSong() {
-            var songUrl = $(this).data('song-url');
             currentIndex = (currentIndex - 1 + songUrls.length) % songUrls.length;
             updateAudioPlayer();
             playAudio();
