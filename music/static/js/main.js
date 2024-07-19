@@ -32,17 +32,17 @@ $(document).ready(function() {
             }
         });
 
-        $('#next-btn').click(function() {
+        function nextSong() {
             currentIndex = (currentIndex + 1) % songUrls.length;
             updateAudioPlayer();
             playAudio();
-        });
+        };
 
-        $('#prev-btn').click(function() {
+        function prevSong() {
             currentIndex = (currentIndex - 1 + songUrls.length) % songUrls.length;
             updateAudioPlayer();
             playAudio();
-        });
+        };
 
         $(".card .pause-btn").click(function(e) {
             e.preventDefault();
@@ -97,4 +97,9 @@ $(document).ready(function() {
         musicPlayer.load();
         musicPlayer.play();
     });
+
+$(document).ready("loadedata",() =>{
+    let duration = musicPlayer.duration;
+    console.log(duration)
+    })
 });
