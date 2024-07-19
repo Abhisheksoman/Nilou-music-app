@@ -148,10 +148,15 @@
 <script src="{% static 'js/main.js' %}"></script>
     <script>
         const songUrls = [
-            {% for music in allSongs %}
-                "{{ music.song.url }}"{% if not forloop.last %},{% endif %}
-            {% endfor %}
-        ];
+        {% for music in allSongs %}
+            "{{ music.song.url }}"{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+    const songTitles = [
+        {% for music in allSongs %}
+            "{{ music.song_title }}"{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
     </script>
 </body>
 </html>
