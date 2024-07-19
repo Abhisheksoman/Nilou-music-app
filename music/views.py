@@ -51,22 +51,24 @@ def login(request):
 
 
 def search_songs(request):
-    template_path = 'music/search.html'
+    if 'email' in request.session:
+        template_path = 'music/search.html'
 
-    search_query = request.GET.get('q', None)
+        search_query = request.GET.get('q', None)
 
-    if search_query:
-        search_result = Music.objects.filter(
-            Q(song_title__icontains=search_query) |
-            Q(album__albumName__icontains=search_query) |
-            Q(album__artist__artistName__icontains=search_query)
-        ).distinct()
+        if search_query:
+            search_result = Music.objects.filter(
+                Q(song_title__icontains=search_query) |
+                Q(album__albumName__icontains=search_query) |
+                Q(album__artist__artistName__icontains=search_query)
+            ).distinct()
+        else:
+            search_result = Music.objects.all()
+
+        context = {'search_result': search_result, 'search_query': search_query}
+        return render(request, template_path, context)
     else:
-        search_result = Music.objects.all()
-
-    context = {'search_result': search_result, 'search_query': search_query}
-    return render(request, template_path, context)
-
+        return redirect('/login')
 
 def home(request):
     if 'email' in request.session:
