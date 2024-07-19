@@ -3,6 +3,10 @@ $(document).ready(function() {
     var songUrls = window.songUrls;  // Get the song URLs from the global scope
     var songTitles = window.songTitles;  // Get the song titles from the global scope
 
+    // Debugging logs
+    console.log("songUrls: ", songUrls);
+    console.log("songTitles: ", songTitles);
+
     $(".card .play-button").click(function(e) {
         e.preventDefault();
 
@@ -62,6 +66,10 @@ $(document).ready(function() {
 
     function updateAudioPlayer() {
         var mediaElement = $("#music-player")[0];
+        if (songUrls.length === 0 || songTitles.length === 0) {
+            console.error("songUrls or songTitles is empty");
+            return;
+        }
         var songUrl = songUrls[currentIndex];
         var songTitle = songTitles[currentIndex];
 
