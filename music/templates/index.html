@@ -146,10 +146,10 @@
         </div>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="{% static 'js/main.js' %}"></script>
- <script>
-        const songs = [
+    <script>
+        const songUrls = [
             {% for music in allSongs %}
-                "{{ music.song_url }}"{% if not forloop.last %},{% endif %}
+                "{{ music.song.url }}"{% if not forloop.last %},{% endif %}
             {% endfor %}
         ];
     </script>

@@ -75,8 +75,8 @@ $(document).ready(function() {
         }
     }
 
-    document.getElementById('prevButton').addEventListener('click', prevSong);
-    document.getElementById('nextButton').addEventListener('click', nextSong);
+    $('#prevButton').on('click', prevSong);
+    $('#nextButton').on('click', nextSong);
 
     // Initial load
     updateAudioPlayer();
