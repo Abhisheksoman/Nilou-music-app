@@ -47,7 +47,7 @@ $(document).ready(function() {
         document.getElementById('prevButton').addEventListener('click', prevSong);
         document.getElementById('nextButton').addEventListener('click', nextSong);
 
-         loadSong(currentSongIndex);
+        loadSong(currentSongIndex);
 
         $(".card .pause-btn").click(function(e) {
             e.preventDefault();
