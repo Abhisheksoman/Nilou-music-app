@@ -32,17 +32,17 @@ $(document).ready(function() {
             }
         });
 
-        function nextSong() {
+        $('#next-btn').click(function() {
             currentIndex = (currentIndex + 1) % songUrls.length;
             updateAudioPlayer();
             playAudio();
-        };
+        });
 
-        function prevSong() {
+        $('#prev-btn').click(function() {
             currentIndex = (currentIndex - 1 + songUrls.length) % songUrls.length;
             updateAudioPlayer();
             playAudio();
-        };
+        });
 
         $(".card .pause-btn").click(function(e) {
             e.preventDefault();
