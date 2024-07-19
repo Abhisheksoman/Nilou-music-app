@@ -1,7 +1,7 @@
 $(document).ready(function() {
         var songUrls = $(this).data('song-url');
         var songTitles = $(this).data('song-title');
-        var currentIndex = 0;
+        let currentIndex = 0;
 
 
         $(".card .play-button").click(function(e) {
@@ -32,17 +32,22 @@ $(document).ready(function() {
             }
         });
 
-        $('#next-btn').click(function() {
-            currentIndex = (currentIndex + 1) % songUrls.length;
+        function nextSong() {
+            currentIndex = (currentIndex + 1) % songs.length;
             updateAudioPlayer();
             playAudio();
-        });
+        };
 
-        $('#prev-btn').click(function() {
-            currentIndex = (currentIndex - 1 + songUrls.length) % songUrls.length;
+        function prevSong() {
+            currentIndex = (currentIndex - 1 + songs.length) % songs.length;
             updateAudioPlayer();
             playAudio();
-        });
+        };
+
+        document.getElementById('prevButton').addEventListener('click', prevSong);
+        document.getElementById('nextButton').addEventListener('click', nextSong);
+
+         loadSong(currentSongIndex);
 
         $(".card .pause-btn").click(function(e) {
             e.preventDefault();
