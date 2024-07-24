@@ -80,8 +80,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'root',
-        'PASSWORD': '2dyCVykrPdd6TxcW',
-        'HOST': 'postgresql-rds-happy-vanilla-3tvu.ch22mwcew210.us-west-2.rds.amazonaws.com',  # Set to empty string for localhost
+        'PASSWORD': 'b2SRmWp1mxZc3BA4',
+        'HOST': 'postgresql-rds-light-grape-6vok.ch22mwcew210.us-west-2.rds.amazonaws.com',  # Set to empty string for localhost
         'PORT': '5432',  # Default PostgreSQL port
     }
 }
