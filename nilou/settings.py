@@ -81,7 +81,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'root',
         'PASSWORD': '2dyCVykrPdd6TxcW',
-        'HOST': 'provisioning',  # Set to empty string for localhost
+        'HOST': 'postgresql-rds-happy-vanilla-3tvu.ch22mwcew210.us-west-2.rds.amazonaws.com',  # Set to empty string for localhost
         'PORT': '5432',  # Default PostgreSQL port
     }
 }
