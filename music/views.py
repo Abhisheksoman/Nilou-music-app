@@ -19,17 +19,23 @@ def register(request):
     if request.method == 'POST':
         form = Userform(request.POST)
         email = request.POST.get('email')
+        name = request.POST.get('name')
         if User.objects.filter(email=email).exists():
             messages.warning(request, 'Email already registered')
             return render(request, 'form1.html', {'form': form})
 
-        if form.is_valid():
-            try:
-                form.save()
-                return redirect('login')
-            except Exception as e:
-                messages.error(request, f"An error occurred: {e}")
-                return render(request, 'form1.html', {'form': form})
+        elif User.objects.filter(name=name).exists():
+            messages.warning(request, 'Email already registered')
+            return render(request, 'form1.html', {'form': form})
+
+        else:
+            if form.is_valid():
+                try:
+                    form.save()
+                    return redirect('login')
+                except Exception as e:
+                    messages.error(request, f"An error occurred: {e}")
+                    return render(request, 'form1.html', {'form': form})
     else:
         form = Userform()
     return render(request, 'form1.html', {'form': form})
