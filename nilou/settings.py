@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'nilou.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Nilou',
-        'USER': 'postgres',
-        'PASSWORD': '12345678',
+        'NAME': 'postgres',
+        'USER': 'root',
+        'PASSWORD': '2dyCVykrPdd6TxcW',
         'HOST': 'localhost',  # Set to empty string for localhost
         'PORT': '5432',  # Default PostgreSQL port
     }
