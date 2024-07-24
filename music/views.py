@@ -25,7 +25,7 @@ def register(request):
             return render(request, 'form1.html', {'form': form})
 
         elif User.objects.filter(name=name).exists():
-            messages.warning(request, 'Email already registered')
+            messages.warning(request, 'name already registered')
             return render(request, 'form1.html', {'form': form})
 
         else:
