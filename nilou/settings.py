@@ -81,7 +81,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'root',
         'PASSWORD': '2dyCVykrPdd6TxcW',
-        'HOST': 'localhost',  # Set to empty string for localhost
+        'HOST': 'provisioning',  # Set to empty string for localhost
         'PORT': '5432',  # Default PostgreSQL port
     }
 }
