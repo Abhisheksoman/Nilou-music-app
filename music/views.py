@@ -8,12 +8,11 @@ from django.db.models import Q
 # Create your views here.
 
 
+
+
 def start(request):
     allSongs = Music.objects.all()
     return render(request, 'index.html', {'allSongs': allSongs})
-
-
-
 
 def register(request):
     if request.method == 'POST':
