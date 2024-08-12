@@ -71,10 +71,10 @@ function initializePlayer() {
     document.getElementById('play').addEventListener("click", () => {
         if (currentSong.paused) {
             currentSong.play();
-            document.getElementById('play').src = "{% static 'photos/pause.svg' %}";
+            document.getElementById('play').src = "{% static 'photos/pause.png' %}";
         } else {
             currentSong.pause();
-            document.getElementById('play').src = "{% static 'photos/play.svg' %}";
+            document.getElementById('play').src = "{% static 'photos/play.png' %}";
         }
     });
 
