@@ -52,9 +52,7 @@
                 </div>
                 <div class="songList">
                     <ul>
-                        <li>
 
-                                           </li>
                 </ul>
             </div>
         </div>
@@ -154,5 +152,9 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static 'js/main.js' %}"></script>
+<script>
+    window.songUrls = {{ album.song_urls|safe }};
+    window.songTitles = {{ album.song_titles|safe }};
+</script>
 </body>
 </html>
