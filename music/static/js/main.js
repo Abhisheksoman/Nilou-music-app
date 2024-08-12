@@ -80,7 +80,7 @@ function initializePlayer() {
 
     document.getElementById('prevButton').addEventListener("click", () => {
         currentSong.pause();
-        let index = songs.findIndex(song => song.url === currentSong.src);
+        let index = songs.findIndex(currentSong.src.split("/").slice(-1)[0]);
         if ((index - 1) >= 0) {
             playMusic(index - 1);
         }
@@ -88,7 +88,7 @@ function initializePlayer() {
 
     document.getElementById('nextButton').addEventListener("click", () => {
         currentSong.pause();
-        let index = songs.findIndex(song => song.url === currentSong.src);
+        let index = songs.findIndex(currentSong.src.split("/").slice(-1)[0]);
         if ((index + 1) < songs.length) {
             playMusic(index + 1);
         }
