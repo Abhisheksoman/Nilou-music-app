@@ -210,7 +210,8 @@ a {
     position:relative;
     bottom:-6px;
     border-radius:12px;
-    margin:6px:
+    margin:6px;
+    cursor: pointer;
 }
 .circle{
     width:13px;
@@ -250,4 +251,21 @@ a {
     position:absolute;
     top:168px;
     right:17px;
+}
+.volume {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+.range input{
+    cursor: pointer;
+}
+
+.abovebar {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    width: 100%;
 }
