@@ -210,7 +210,8 @@ a {
     position:relative;
     bottom:-6px;
     border-radius:12px;
-    margin:6px:
+    margin:6px;
+    cursor: pointer;
 }
 .circle{
     width:13px;
