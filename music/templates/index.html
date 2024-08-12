@@ -51,101 +51,107 @@
                     <h2>Your library</h2>
                 </div>
                 <div class="songList">
-                    {% for music in allSongs %}
                     <ul>
                         <li>
 
-                        </li>
-                    </ul>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="footer">
-                <div><a href="https://www.spotify.com/in-en/legal/"><span>Legal</span></a></div>
-                <div><a href="https://www.spotify.com/in-en/safetyandprivacy/"><span>Safety & Privacy Center</span></a></div>
-                <div><a href="https://www.spotify.com/in-en/legal/privacy-policy/"><span>Privacy Policy</span></a></div>
-                <div><a href="https://www.spotify.com/in-en/legal/cookies-policy/"><span>Cookies</span></a></div>
-                <div><a href="https://www.spotify.com/in-en/legal/privacy-policy/#s3"><span>About Ads</span></a></div>
-                <div><a href="https://www.spotify.com/in-en/accessibility/"><span>Accessibility</span></a></div>
+                                           </li>
+                </ul>
             </div>
         </div>
-        <div class="right-column bg-grey rounded">
-            <div class="header">
-                <div class="nav">
-                    <img src="{% static 'photos/left_arrow.png' %}" alt="left">
-                    <img src="{% static 'photos/right_arrow.png' %}" alt="right">
-                </div>
+        <div class="footer">
+            <div><a href="https://www.spotify.com/in-en/legal/"><span>Legal</span></a></div>
+            <div><a href="https://www.spotify.com/in-en/safetyandprivacy/"><span>Safety & Privacy Center</span></a></div>
+            <div><a href="https://www.spotify.com/in-en/legal/privacy-policy/"><span>Privacy Policy</span></a></div>
+            <div><a href="https://www.spotify.com/in-en/legal/cookies-policy/"><span>Cookies</span></a></div>
+            <div><a href="https://www.spotify.com/in-en/legal/privacy-policy/#s3"><span>About Ads</span></a></div>
+            <div><a href="https://www.spotify.com/in-en/accessibility/"><span>Accessibility</span></a></div>
+        </div>
+    </div>
+    <div class="right-column bg-grey rounded">
+        <div class="header">
+            <div class="nav">
+                <img src="{% static 'photos/left_arrow.png' %}" alt="left">
+                <img src="{% static 'photos/right_arrow.png' %}" alt="right">
+            </div>
+            {% if 'email' in request.session %}
+            <div class="authenticated-user-content">
+                <h2>Welcome, {{ user.name }}!</h2>
+                <p>You are logged in as an authenticated user.</p>
+                <a href="{% url 'user_logout' %}">Logout</a>
+                <a href="{% url 'show' %}">User dashboard</a>
+            </div>
+            {% else %}
+            <div class="buttons">
+                <a type="button" class="btn" href="{% url 'register' %}">Signup</a>
+                <a type="button" class="btn" href="{% url 'login' %}">Login</a>
+            </div>
+            {% endif %}
+        </div>
+        <div class="nilou-playlist">
+            <h1>Nilou Music Playlist</h1>
+            <div class="cardContainer">
+            {% for album in albums %}
+            <div class="card" data-songs='[
+                {% for song in album.music_set.all %}
+                    {"url": "{{ song.song.url }}", "title": "{{ song.song_title }}"}{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            ]'>
                 {% if 'email' in request.session %}
-                <div class="authenticated-user-content">
-                    <h2>Welcome, {{ user.name }}!</h2>
-                    <p>You are logged in as an authenticated user.</p>
-                    <a href="{% url 'user_logout' %}">Logout</a>
-                    <a href="{% url 'show' %}">User dashboard</a>
+                <div class="play-button" data-artist-name="{{ album.artist.artistName }}" data-album-title="{{ album.albumName }}" data-album-thumbnail="{{ album.thumbnail.url }}">
+                    <img src="{% static 'photos/play.svg' %}">
+                </div>
+                <div class="pause-btn" style="display:none;">
+                    <img src="{% static 'photos/pause.svg' %}">
                 </div>
                 {% else %}
-                <div class="buttons">
-                    <a type="button" class="btn" href="{% url 'register' %}">Signup</a>
-                    <a type="button" class="btn" href="{% url 'login' %}">Login</a>
+                <div class="play-button">
+                    <img src="{% static 'photos/play.svg' %}">
+                </div>
+                <div class="pause-btn" style="display:none;">
+                    <img src="{% static 'photos/pause.svg' %}">
                 </div>
                 {% endif %}
+                <img src="{{ album.thumbnail.url }}" alt="{{ album.albumName }}">
+                <h3>{{ album.albumName }}</h3>
+                <p>from - {{ album.artist.artistName }}</p>
+                <p>Last Updated {{ album.last_updated | timesince }} mins ago</p>
             </div>
-            <div class="nilou-playlist">
-                <h1>Nilou Music Playlist</h1>
-                <div class="cardContainer">
-                {% for music in allSongs %}
-                <div class="card">
-                   {% if 'email' in request.session %}
-                    <div class="play-button" data-song-url="{{ music.song.url }}" data-song-title="{{ music.song_title }}" data-song-thumbnail="{{ music.thumbnail.url }}">
-                        <img src="{% static 'photos/play.svg' %}">
-                    </div>
-                    <div class="pause-btn" style="display:none;">
-                        <img src="{% static 'photos/pause.svg' %}">
-                    </div>
-                    {% else %}
-                    <div class="play-button">
-                        <img src="{% static 'photos/play.svg' %}">
-                    </div>
-                    <div class="pause-btn" style="display:none;">
-                        <img src="{% static 'photos/pause.svg' %}">
-                    </div>
-                    {% endif %}
-                    <img src="{{ music.thumbnail.url }}" alt="{{ music.song_title }}">
-                    <h3>{{ music.song_title }}</h3>
-                    <p>from -{{ music.album }}</p>
-                    <p>Last Updated {{ music.last_updated | timesince }} mins ago</p>
-                </div>
-                {% endfor %}
-            </div>
+            {% endfor %}
+        </div>
+       <div class="playbar">
+                <div class="seekbar">
+                    <div class="circle">
 
-            <div class="playbar">
-                <audio id="music-player" style="width:100%" controls>
-                    <source id="music-source" src="" type="audio/mpeg">
-                </audio>
-            </div>
-            <div class="songinfo">
-                <img id="thumbnail" src="" alt="">
-                <h3 id="current-song-title"></h3>
-            </div>
-            <div class="songtime">
-                <span id="current-time">0:00</span>
-                <span id="total_duration">{{ duration_text }}</span>
-            </div>
-            </div>
+                    </div>
+                </div>
+                <div class="abovebar">
+
+
+                    <div class="songinfo">
+
+                    </div>
+                    <div class="songbuttons">
+                        <img width="35" id="previous" src="img/prevsong.svg" alt="">
+                        <img width="35" id="play" src="img/play.svg" alt="">
+                        <img width="35" id="next" src="img/nextsong.svg" alt="">
+                    </div>
+                    <div class="timevol">
+
+
+                    <div class="songtime">
+                        </div>
+                    <div class="volume">
+                        <img width="25" src="img/volume.svg" alt="">
+                        <div class="range">
+                            <input type="range" name="volume" id="">
+                        </div>
+                    </div>
+                    </div>
+                </div>
             </div>
         </div>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
-        const songUrls = [
-            {% for music in allSongs %}
-                "{{ music.song.url }}"{% if not forloop.last %},{% endif %}
-            {% endfor %}
-        ];
-        const songTitles = [
-            {% for music in allSongs %}
-                "{{ music.song_title }}"{% if not forloop.last %},{% endif %}
-            {% endfor %}
-        ];
-</script>
+    </div>
+</div>
 <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
