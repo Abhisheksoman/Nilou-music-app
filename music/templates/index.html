@@ -88,25 +88,26 @@
         <div class="nilou-playlist">
             <h1>Nilou Music Playlist</h1>
             <div class="cardContainer">
-            {% for album in albums %}
-            <div class="card" data-songs='[
-                {% for song in album.music_set.all %}
-                    {"url": "{{ song.song.url }}", "title": "{{ song.song_title }}"}{% if not forloop.last %},{% endif %}
+                {% for album in albums %}
+                <div class="card" data-songs='[
+                    {% for song in album.music_set.all %}
+                        {"url": "{{ song.song.url }}", "title": "{{ song.song_title }}", "thumbnail": "{{ song.thumbnail.url }}"}{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                ]'>
+                    <div class="play-button" data-artist-name="{{ album.artist.artistName }}">
+                        <img src="{% static 'photos/play.svg' %}">
+                    </div>
+                    <div class="pause-btn" style="display:none;">
+                        <img src="{% static 'photos/pause.svg' %}">
+                    </div>
+                    <img src="{{ album.thumbnail.url }}" alt="{{ album.albumName }}">
+                    <h3>{{ album.albumName }}</h3>
+                    <p>from - {{ album.artist.artistName }}</p>
+                    <p>Last Updated {{ album.last_updated | timesince }} mins ago</p>
+                </div>
                 {% endfor %}
-            ]'>
-                <div class="play-button" data-artist-name="{{ album.artist.artistName }}">
-                    <img src="{% static 'photos/play.svg' %}">
-                </div>
-                <div class="pause-btn" style="display:none;">
-                    <img src="{% static 'photos/pause.svg' %}">
-                </div>
-                <img src="{{ album.thumbnail.url }}" alt="{{ album.albumName }}">
-                <h3>{{ album.albumName }}</h3>
-                <p>from - {{ album.artist.artistName }}</p>
-                <p>Last Updated {{ album.last_updated | timesince }} mins ago</p>
             </div>
-            {% endfor %}
-        </div>
+
        <div class="playbar">
                 <div class="seekbar">
                     <div class="circle">
@@ -120,9 +121,9 @@
 
                     </div>
                     <div class="songbuttons">
-                        <img width="35" id="previous" src="{% static 'photos/prev.png'}" alt="">
+                        <img width="35" id="prevButton" src="{% static 'photos/prev.png'}" alt="">
                         <img width="35" id="play" src="{% static 'photos/play.png'}" alt="">
-                        <img width="35" id="next" src="{% static 'photos/next.png'}" alt="">
+                        <img width="35" id="nextButton" src="{% static 'photos/next.png'}" alt="">
                     </div>
                     <div class="timevol">
 

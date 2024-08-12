@@ -78,10 +78,10 @@ def home(request):
     if 'email' in request.session:
         try:
             user = User.objects.get(email=request.session['email'])
-            allSongs = Music.objects.all()
+            albums = Album.objects.prefetch_related('music_set').all()
             context = {
                 'user':user,
-                'allSongs':allSongs,
+                'albums':albums,
             }
             return render(request, 'index.html', context)
         except User.DoesNotExist:
