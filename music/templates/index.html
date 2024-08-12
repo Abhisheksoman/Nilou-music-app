@@ -54,16 +54,7 @@
                     {% for music in allSongs %}
                     <ul>
                         <li>
-                            <img class="invert" src="{% static 'photos/music.svg' %}" alt="">
-                            {% if 'email' in request.session %}
-                                <div class="info" data-song-url="{{ music.song.url }}" data-song-title="{{ music.song_title }}" data-song-thumbnail="{{ music.thumbnail.url }}">
-                                    <div>{{ music.song_title }}</div>
-                                </div>
-                            {% else %}
-                                <div class="info">
-                                    <div>{{ music.song_title }}</div>
-                                </div>
-                            {% endif %}
+
                         </li>
                     </ul>
                     {% endfor %}

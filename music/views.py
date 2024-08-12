@@ -9,10 +9,9 @@ from django.db.models import Q
 
 
 
-
 def start(request):
-    allSongs = Music.objects.all()
-    return render(request, 'index.html', {'allSongs': allSongs})
+    album = Album.objects.all()
+    return render(request, 'index.html', {'album': album})
 
 def register(request):
     if request.method == 'POST':
