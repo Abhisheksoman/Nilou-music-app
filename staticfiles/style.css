@@ -180,7 +180,6 @@ a {
 .songbuttons img{
     width:17px;
     border-radius:100%;
-    filter:invert(1);
 }
 
 .songList {
