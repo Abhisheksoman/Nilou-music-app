@@ -94,21 +94,12 @@
                     {"url": "{{ song.song.url }}", "title": "{{ song.song_title }}"}{% if not forloop.last %},{% endif %}
                 {% endfor %}
             ]'>
-                {% if 'email' in request.session %}
-                <div class="play-button" data-artist-name="{{ album.artist.artistName }}" data-album-title="{{ album.albumName }}" data-album-thumbnail="{{ album.thumbnail.url }}">
+                <div class="play-button" data-artist-name="{{ album.artist.artistName }}">
                     <img src="{% static 'photos/play.svg' %}">
                 </div>
                 <div class="pause-btn" style="display:none;">
                     <img src="{% static 'photos/pause.svg' %}">
                 </div>
-                {% else %}
-                <div class="play-button">
-                    <img src="{% static 'photos/play.svg' %}">
-                </div>
-                <div class="pause-btn" style="display:none;">
-                    <img src="{% static 'photos/pause.svg' %}">
-                </div>
-                {% endif %}
                 <img src="{{ album.thumbnail.url }}" alt="{{ album.albumName }}">
                 <h3>{{ album.albumName }}</h3>
                 <p>from - {{ album.artist.artistName }}</p>

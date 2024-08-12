@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var currentIndex = 0;
-    var songs = []; // Array to hold song objects
+    var songUrls = window.songUrls; // Get the song URLs from the global scope
+    var songTitles = window.songTitles; // Get the song titles from the global scope
 
     $(".card .play-button").click(function(e) {
         e.preventDefault();
@@ -20,7 +21,7 @@ $(document).ready(function() {
 
         // Get the song data from the card
         var songData = $(this).closest('.card').data('songs');
-        songs = JSON.parse(songData); // Parse the JSON string into an array of objects
+        var songs = JSON.parse(songData); // Parse the JSON string into an array of objects
 
         // Populate the song list
         var songList = $(".songList ul");
@@ -30,7 +31,7 @@ $(document).ready(function() {
                 <img class="invert" width="34" src="img/music.svg" alt="">
                 <div class="info">
                     <div>${song.title}</div>
-                    <div>${$(this).data('artist-name')}</div>
+                    <div>Artist Name</div>
                 </div>
                 <div class="playnow">
                     <span>Play Now</span>
@@ -52,6 +53,19 @@ $(document).ready(function() {
         }
     });
 
+    $(".card .pause-btn").click(function(e) {
+        e.preventDefault();
+
+        // Hide this pause button and show the play button
+        $(this).hide();
+        $(this).siblings(".play-button").show();
+
+        const mediaElement = $("#music-player")[0];
+        if (mediaElement) {
+            mediaElement.pause();
+        }
+    });
+
     function playMusic(track) {
         var song = songs.find(s => s.title === track);
         if (song) {
@@ -65,16 +79,41 @@ $(document).ready(function() {
         }
     }
 
-    $(".card .pause-btn").click(function(e) {
-        e.preventDefault();
+    document.getElementById('prevButton').addEventListener('click', prevSong);
+    document.getElementById('nextButton').addEventListener('click', nextSong);
 
-        // Hide this pause button and show the play button
-        $(this).hide();
-        $(this).siblings(".play-button").show();
+    function nextSong() {
+        currentIndex = (currentIndex + 1) % songUrls.length;
+        updateAudioPlayer();
+        playAudio();
+    }
 
-        const mediaElement = $("#music-player")[0];
+    function prevSong() {
+        currentIndex = (currentIndex - 1 + songUrls.length) % songUrls.length;
+        updateAudioPlayer();
+        playAudio();
+    }
+
+    function updateAudioPlayer() {
+        var mediaElement = $("#music-player")[0];
+        var songUrl = songUrls[currentIndex];
+        var songTitle = songTitles[currentIndex];
+        updateMediaElement(mediaElement, songUrl, songTitle);
+    }
+
+    function updateMediaElement(mediaElement, songUrl, songTitle) {
+        $(mediaElement).find("source").attr('src', songUrl);
+        mediaElement.load(); // Reload the audio element with the new source
+        $('#current-song-title').text(songTitle);
+    }
+
+    function playAudio() {
+        var mediaElement = $("#music-player")[0];
         if (mediaElement) {
-            mediaElement.pause();
+            mediaElement.play();
         }
-    });
+    }
+
+    // Initial load
+    updateAudioPlayer();
 });

@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var currentIndex = 0;
-    var songUrls = window.songUrls; // Get the song URLs from the global scope
-    var songTitles = window.songTitles; // Get the song titles from the global scope
+    var songUrls = window.songUrls || []; // Get the song URLs from the global scope
+    var songTitles = window.songTitles || []; // Get the song titles from the global scope
 
     $(".card .play-button").click(function(e) {
         e.preventDefault();
@@ -19,29 +19,23 @@ $(document).ready(function() {
         $(this).hide();
         $(this).siblings(".pause-btn").show();
 
-        // Logic to play the specific media
-        var songUrl = $(this).data('song-url');
-        var songTitle = $(this).data('song-title');
-        const mediaElement = $("#music-player")[0];
-        updateMediaElement(mediaElement, songUrl, songTitle);
-
-        if (mediaElement) {
-            mediaElement.play();
-        }
+        // Get the song data from the card
+        var songData = $(this).closest('.card').data('songs');
+        var songs = JSON.parse(songData); // Parse the JSON string into an array of objects
 
         // Populate the song list
         var songList = $(".songList ul");
         songList.empty(); // Clear existing songs
-        songTitles.forEach(function(title) {
+        songs.forEach(function(song) {
             songList.append(`<li>
-                <img class="invert" width="34" src="img/music.svg" alt="">
+                <img class="invert" width="34" src="{% static 'photos/music.svg' %}" alt="">
                 <div class="info">
-                    <div>${title}</div>
-                    <div>Artist Name</div>
+                    <div>${song.title}</div>
+                    <div>${$(this).data('artist-name')}</div>
                 </div>
                 <div class="playnow">
                     <span>Play Now</span>
-                    <img class="invert" src="img/play.svg" alt="">
+                    <img class="invert" src="{% static 'photos/play.svg' %}" alt="">
                 </div>
             </li>`);
         });
@@ -51,6 +45,12 @@ $(document).ready(function() {
             var trackTitle = $(this).find('.info div:first').text();
             playMusic(trackTitle);
         });
+
+        // Play the first song
+        if (songs.length > 0) {
+            currentIndex = 0;
+            playMusic(songs[currentIndex].title);
+        }
     });
 
     $(".card .pause-btn").click(function(e) {
@@ -66,11 +66,21 @@ $(document).ready(function() {
         }
     });
 
-    function updateMediaElement(mediaElement, songUrl, songTitle) {
-        $(mediaElement).find("source").attr('src', songUrl);
-        mediaElement.load(); // Reload the audio element with the new source
-        $('#current-song-title').text(songTitle);
+    function playMusic(track) {
+        var song = songs.find(s => s.title === track);
+        if (song) {
+            const mediaElement = $("#music-player")[0];
+            mediaElement.src = song.url; // Set the audio source to the song URL
+            mediaElement.play(); // Play the audio
+
+            // Update the song info display
+            $('#current-song-title').text(track);
+            document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
+        }
     }
+
+    document.getElementById('prevButton').addEventListener('click', prevSong);
+    document.getElementById('nextButton').addEventListener('click', nextSong);
 
     function nextSong() {
         currentIndex = (currentIndex + 1) % songUrls.length;
@@ -91,15 +101,18 @@ $(document).ready(function() {
         updateMediaElement(mediaElement, songUrl, songTitle);
     }
 
+    function updateMediaElement(mediaElement, songUrl, songTitle) {
+        $(mediaElement).find("source").attr('src', songUrl);
+        mediaElement.load(); // Reload the audio element with the new source
+        $('#current-song-title').text(songTitle);
+    }
+
     function playAudio() {
         var mediaElement = $("#music-player")[0];
         if (mediaElement) {
             mediaElement.play();
         }
     }
-
-    document.getElementById('prevButton').addEventListener('click', prevSong);
-    document.getElementById('nextButton').addEventListener('click', nextSong);
 
     // Initial load
     updateAudioPlayer();

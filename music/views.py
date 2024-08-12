@@ -11,17 +11,7 @@ from django.db.models import Q
 
 def start(request):
     albums = Album.objects.prefetch_related('music_set').all()
-    album_data = []
-    for album in albums:
-        songs = album.music_set.all()
-        song_urls = [song.song.url for song in songs]
-        song_titles = [song.song_title for song in songs]
-        album_data.append({
-            'album': album,
-            'song_urls': song_urls,
-            'song_titles': song_titles
-        })
-    return render(request, 'index.html', {'albums': album_data})
+    return render(request, 'index.html', {'albums': albums})
 
 def register(request):
     if request.method == 'POST':
