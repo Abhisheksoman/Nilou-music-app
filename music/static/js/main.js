@@ -71,38 +71,38 @@ function initializePlayer() {
     document.getElementById('play').addEventListener("click", () => {
         if (currentSong.paused) {
             currentSong.play();
-            document.getElementById('play').src = "{% static 'photos/pause.png' %}";
+            document.getElementById('play').src = "static/photos/pause.png";
         } else {
             currentSong.pause();
-            document.getElementById('play').src = "{% static 'photos/play.png' %}";
+            document.getElementById('play').src = "static/photos/pause.png";
         }
     });
 
-    document.getElementById('prevButton').addEventListener("click", () => {
-    currentSong.pause();
-    let index = songs.findIndex(song => song.url === currentSong.src);
+        document.getElementById('prevButton').addEventListener("click", () => {
+        currentSong.pause();
+        let index = songs.findIndex(song => song.url === currentSong.src);
 
-    // Decrease index and play the previous song if possible
-    if (index > 0) {
-        playMusic(index - 1);
-    } else {
-        // Optional: If at the first song, loop back to the last song
-        playMusic(songs.length - 1);
-    }
-});
+        // Decrease index and play the previous song if possible
+        if (index > 0) {
+            playMusic(index - 1);
+        } else {
+            // Optional: If at the first song, loop back to the last song
+            playMusic(songs.length - 1);
+        }
+    });
 
-document.getElementById('nextButton').addEventListener("click", () => {
-    currentSong.pause();
-    let index = songs.findIndex(song => song.url === currentSong.src);
+    document.getElementById('nextButton').addEventListener("click", () => {
+        currentSong.pause();
+        let index = songs.findIndex(song => song.url === currentSong.src);
 
-    // Increase index and play the next song if possible
-    if (index < songs.length - 1) {
-        playMusic(index + 1);
-    } else {
-        // Optional: If at the last song, loop back to the first song
-        playMusic(0);
-    }
-});
+        // Increase index and play the next song if possible
+        if (index < songs.length - 1) {
+            playMusic(index + 1);
+        } else {
+            // Optional: If at the last song, loop back to the first song
+            playMusic(0);
+        }
+    });
 
     // Listen for timeupdate event
     currentSong.addEventListener("timeupdate", () => {
