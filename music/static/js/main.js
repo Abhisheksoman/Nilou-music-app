@@ -72,7 +72,7 @@ $(document).ready(function() {
         $(this).hide();
         $(this).siblings(".play-button").show();
 
-        const mediaElement = $("#music-player")[0];
+        const mediaElement = $(".playbar")[0];
         if (mediaElement) {
             mediaElement.pause();
         }
