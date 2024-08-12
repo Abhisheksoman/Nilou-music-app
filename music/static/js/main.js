@@ -74,7 +74,7 @@ function initializePlayer() {
             document.getElementById('play').src = "static/photos/pause.png";
         } else {
             currentSong.pause();
-            document.getElementById('play').src = "static/photos/pause.png";
+            document.getElementById('play').src = "static/photos/play.png";
         }
     });
 
@@ -119,16 +119,16 @@ function initializePlayer() {
 
     document.querySelector(".range input").addEventListener("change", e => {
         currentSong.volume = parseInt(e.target.value) / 100;
-        document.querySelector(".volume>img").src = currentSong.volume > 0 ? "{% static 'photos/volume.svg' %}" : "{% static 'photos/mute.svg' %}";
+        document.querySelector(".volume>img").src = currentSong.volume > 0 ? "static/photos/volume.png" : "static/photos/mute.png";
     });
 
     document.querySelector(".volume>img").addEventListener("click", e => {
-        if (e.target.src.includes("volume.svg")) {
-            e.target.src = "{% static 'photos/mute.svg' %}";
+        if (e.target.src.includes("volume.png")) {
+            e.target.src = "static/photos/mute.png";
             currentSong.volume = 0;
             document.querySelector(".range input").value = 0;
         } else {
-            e.target.src = "{% static 'photos/volume.svg' %}";
+            e.target.src = "static/photos/volume.png";
             currentSong.volume = 0.10;
             document.querySelector(".range input").value = 10;
         }
